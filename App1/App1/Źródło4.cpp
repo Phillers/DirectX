@@ -1,6 +1,7 @@
 // Include the precompiled headers
 #include "pch.h"
-/*
+#include "Game.h"
+
 // Use some common namespaces to simplify the code
 using namespace Windows::ApplicationModel;
 using namespace Windows::ApplicationModel::Core;
@@ -17,6 +18,7 @@ using namespace Platform;
 ref class App sealed : public IFrameworkView
 {
 	bool WindowClosed;    // change to true when it's time to close the window
+	CGame Game;
 public:
 	virtual void Initialize(CoreApplicationView^ AppView)
 	{
@@ -29,10 +31,14 @@ public:
 	{
 		Window->Closed += ref new TypedEventHandler
 			<CoreWindow^, CoreWindowEventArgs^>(this, &App::Closed);
+		Window->PointerPressed += ref new TypedEventHandler
+			<CoreWindow^, PointerEventArgs^>(this, &App::PointerPressed);
 	}
 	virtual void Load(String^ EntryPoint) {}
 	virtual void Run()
 	{
+		Game.Initialize();
+
 		CoreWindow^ Window = CoreWindow::GetForCurrentThread();
 
 		// repeat until window closes
@@ -41,8 +47,8 @@ public:
 			Window->Dispatcher->ProcessEvents(CoreProcessEventsOption::ProcessAllIfPresent);
 
 			// Run game code here
-			// ...
-			// ...
+			Game.Update();
+			Game.Render();
 		}
 	}
 	virtual void Uninitialize() {}
@@ -56,6 +62,11 @@ public:
 	void Closed(CoreWindow^ sender, CoreWindowEventArgs^ args)
 	{
 		WindowClosed = true;    // Time to end the endless loop
+	}
+	void PointerPressed(CoreWindow^ Window, PointerEventArgs^ Args)
+	{
+		float color[4] = {Args->CurrentPoint->Position.X/1000.0, 1, Args->CurrentPoint->Position.Y/1000.0, 1};
+		Game.SetColor(color);
 	}
 };
 
@@ -78,4 +89,3 @@ int main(Array<String^>^ args)
 	CoreApplication::Run(ref new AppSource());    // create and run a new AppSource class
 	return 0;
 }
-*/

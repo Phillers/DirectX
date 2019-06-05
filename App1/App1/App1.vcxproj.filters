@@ -35,9 +35,13 @@
     <ClCompile Include="Źródło.cpp" />
     <ClCompile Include="Źródło1.cpp" />
     <ClCompile Include="Źródło2.cpp" />
+    <ClCompile Include="Źródło3.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Źródło4.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Game.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
@@ -52,5 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App1_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="PixelShader.hlsl" />
+    <FxCompile Include="VertexShader.hlsl" />
   </ItemGroup>
 </Project>
